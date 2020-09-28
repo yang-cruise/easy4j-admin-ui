@@ -45,11 +45,11 @@
                 </a-input-password>
               </a-form-item>
             </a-tab-pane>
-            <a-tab-pane key="tab2" tab="扫码登录">
+            <!-- <a-tab-pane key="tab2" tab="扫码登录">
               <div class="code-content">
                 <img src="@/framework/assets/install.png" />
               </div>
-            </a-tab-pane>
+            </a-tab-pane> -->
           </a-tabs>
         </div>
         <div>

@@ -1,8 +1,8 @@
 English | [简体中文](./README.zh-CN.md)
 
-<h1 align="center">Ant Design Vue Pro</h1>
+<h1 align="center">Easy4j</h1>
 <div align="center">
-An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on  <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Ant Design of Vue</a>
+An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on  <a href="https://pro.ant.design/" target="_blank">Ant Design Pro</a>
 </div>
 
 <div align="center">
@@ -13,20 +13,19 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 
 </div>
 
-- Preview: https://preview.pro.antdv.com
-- Home Page: https://pro.antdv.com
-- Documentation: https://pro.antdv.com/docs/getting-started
-- ChangeLog: https://pro.antdv.com/docs/changelog
-- FAQ: https://pro.antdv.com/docs/faq
+- Preview: http://admin.easy4j.cn
+- Home Page: https://www.easy4j.cn
+- Documentation: https://www.easy4j.cn/guide
 
 Overview
 ----
 
-![dashboard](https://static-2.loacg.com/open/static/github/SP1.png)
+Implementation of  [Eeasy4j](https://www.easy4j.cn/)based on [Ant Design Pro](https://pro.ant.design/) 
 
 ### Env and dependencies
 
 - node
+- npm
 - yarn
 - webpack
 - eslint
@@ -43,8 +42,7 @@ Overview
 
 - Clone repo
 ```bash
-git clone https://github.com/vueComponent/ant-design-vue-pro.git
-cd ant-design-vue-pro
+git clone https://github.com/yang-cruise/easy4j-admin-ui
 ```
 
 - Install dependencies
@@ -70,7 +68,7 @@ yarn run lint
 
 ### Other
 
-- **IMPORTANT : About Issue feedback !! when opening Issue read [Issue / PR Contributing](https://github.com/vueComponent/ant-design-vue-pro/issues/90)**
+- **IMPORTANT : About Issue feedback !!
 
 - [Vue-cli3](https://cli.vuejs.org/guide/) used by the project.
 
@@ -93,9 +91,3 @@ Modern browsers and IE10.
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
 | --- | --- | --- | --- | --- |
 | IE10, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
-
-
-## Contributors
-
-This project exists thanks to all the people who contribute. 
-<a href="https://github.com/vueComponent/ant-design-vue-pro/graphs/contributors"><img src="https://opencollective.com/ant-design-pro-vue/contributors.svg?width=890&button=false" /></a>
