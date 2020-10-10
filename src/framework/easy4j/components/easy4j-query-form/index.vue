@@ -50,7 +50,7 @@
                   @changeCity="changeCity($event, item.prop)"
                   :placeholder="item.placeholder"
                 ></easy4j-city-cascader>
-                <easy4j-time-picker v-if="item.type === 'timePicker'" :type="item.pickerType || 'date'"></easy4j-time-picker>
+                <easy4j-time-picker v-model="queryParam[item.prop]" v-if="item.type === 'timePicker'" :type="item.pickerType || 'date'"></easy4j-time-picker>
                 <a-input v-if="!item.type" v-model="queryParam[item.prop]" :placeholder="item.placeholder" />
               </a-form-item>
             </a-col>

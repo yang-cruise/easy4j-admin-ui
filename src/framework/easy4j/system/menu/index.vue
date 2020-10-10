@@ -41,7 +41,6 @@ import SortMenu from './modules/SortMenu.vue'
 import { mapGetters } from 'vuex'
 import { getList, del } from '@/framework/api/menu'
 import insert from './modules/insert.vue'
-import Easy4jTimePicker from '@/framework/easy4j/components/easy4j-time-picker'
 import moment from 'moment'
 import Easy4jQueryForm from '@/framework/easy4j/components/easy4j-query-form'
 
@@ -50,7 +49,6 @@ export default {
     STable,
     SortMenu,
     insert,
-    Easy4jTimePicker,
     Easy4jQueryForm
   },
   data () {
