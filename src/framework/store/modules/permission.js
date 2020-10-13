@@ -25,7 +25,7 @@ const handleRoutersList = (list = [], target) => {
         perms: item.perms,
         icon: item.icon
       },
-      path: item.url || '/',
+      path: item.url || `/${item.id}`,
       component: RouteView,
       name: `${item.id}`
     }
@@ -35,7 +35,7 @@ const handleRoutersList = (list = [], target) => {
     }
     if (item.type === 'D' && item.children && item.children.length) {
       child.redirect = getFirstPath(item.children)
-      child.path = '/'
+      child.path = `/${item.id}`
     }
     if (item.children && item.children.length) {
       handleRoutersList(item.children, child.children)
