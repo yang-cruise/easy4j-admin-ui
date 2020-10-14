@@ -120,6 +120,7 @@ export default {
   methods: {
     show () {
       this.visible = true
+      this.initTreeList()
     },
     handleSubmit () {
       const params = { ...this.form, parentId: '' }
