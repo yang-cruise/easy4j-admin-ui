@@ -1,7 +1,7 @@
 <template>
   <a-select
-    v-if="selects.multiple"
-    v-model="selects.multipleValue"
+    v-if="multiple"
+    v-model="selects.defaultValue"
     mode="multiple"
     style="width: 100%"
     :placeholder="selects.placeholder"
@@ -16,7 +16,7 @@
   </a-select>
   <a-select
     v-else
-    :efault-value="selects.defaultValue"
+    v-model="selects.defaultValue"
     :allowClear="true"
     :placeholder="selects.placeholder"
     @change="changeSelect"
@@ -34,50 +34,58 @@ import { getSelectDiction } from '@/framework/api/dictionaries'
 const selects = {
   placeholder: '请选择',
   defaultValue: '',
-  multiple: false,
-  multipleValue: [],
-  arr: [
-    // {
-    //   dictId: 1005,
-    //   gmtCreate: '2020-02-11 14:54:35',
-    //   gmtModified: '2020-02-11 14:54:35',
-    //   id: 8,
-    //   key: 'D',
-    //   sort: 1,
-    //   value: '目录'
-    // }
-  ]
+  arr: []
 }
 
 export default {
   name: 'DicSelect',
+  model: {
+    prop: 'selectValue',
+    event: 'input-value'
+  },
   props: {
-    selectData: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    },
     codeKey: {
       type: String,
       default: ''
+    },
+    selectValue: {
+      default: '' || []
+    },
+    multiple: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-      selects: selects,
-      multipleValue: []
+      selects: selects
     }
   },
   mounted () {
     if (this.codeKey) {
-      getSelectDiction({ code: this.codeKey }).then(res => {
-        console.log(res)
-        selects.arr = res.data
-      })
+      this.getArrowDown()
+      this.selects.defaultValue = this.selectValue
+    }
+  },
+  watch: {
+    codeKey (a, b) {
+      if (a) {
+        this.getArrowDown()
+      } else {
+        selects.arr = []
+      }
+    },
+    selectValue (a, b) {
+      this.selects.defaultValue = a
+      this.changeSelect(a)
     }
   },
   methods: {
+    getArrowDown () {
+      getSelectDiction({ code: this.codeKey }).then(res => {
+        selects.arr = res.data
+      })
+    },
     changeSelect (value) {
       let backArr = ''
       const resultArr = [...this.selects.arr]
@@ -89,7 +97,6 @@ export default {
           })
         })
       } else if (value) {
-        console.log(resultArr)
         backArr = {
           value: value,
           item: resultArr.find((valueId, index) => {
@@ -98,6 +105,7 @@ export default {
         }
       }
       this.$emit('changeSelect', backArr)
+      this.$emit('input-value', value || undefined)
     }
   }
 }
