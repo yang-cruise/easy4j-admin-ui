@@ -60,7 +60,6 @@
       </Change-from>
     </a-card>
   </page-header-wrapper>
-
 </template>
 
 <script>
