@@ -32,7 +32,7 @@
 import { getSelectDiction } from '@/framework/api/dictionaries'
 
 const selects = {
-  placeholder: '请选择',
+  placeholder: '',
   defaultValue: '',
   arr: []
 }
@@ -49,11 +49,14 @@ export default {
       default: ''
     },
     selectValue: {
-      default: '' || []
+      default: undefined || []
     },
     multiple: {
       type: Boolean,
       default: false
+    },
+    placeholder: {
+      default: '请选择'
     }
   },
   data () {
@@ -64,7 +67,8 @@ export default {
   mounted () {
     if (this.codeKey) {
       this.getArrowDown()
-      this.selects.defaultValue = this.selectValue
+      this.selects.defaultValue = this.selectValue ? this.selectValue : undefined
+      this.selects.placeholder = this.placeholder ? this.placeholder : '请选择'
     }
   },
   watch: {
@@ -76,8 +80,11 @@ export default {
       }
     },
     selectValue (a, b) {
-      this.selects.defaultValue = a
+      this.selects.defaultValue = a ? toString(a) : undefined
       this.changeSelect(a)
+    },
+    placeholder (a, b) {
+      this.selects.placeholder = a ? toString(a) : '请选择'
     }
   },
   methods: {
