@@ -17,7 +17,7 @@ export default {
     }
   },
   created () {
-    console.log(T.props)
+    // console.log(T.props)
   },
   render () {
     const props = {}

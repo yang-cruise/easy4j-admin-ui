@@ -12,7 +12,7 @@
                   :placeholder="item.placeholder"
                 >
                   <a-select-option v-for="(optItem, optIndex) in item.option" :value="optItem.value" :key="optIndex">
-                    {{ optItem.prop }}
+                    {{ optItem.title }}
                   </a-select-option>
                 </a-select>
                 <easy4j-dict-select
@@ -101,7 +101,7 @@ export default {
     formConfig: {
       deep: true,
       immediate: true,
-      handler () {
+      handler (newVal, oldVal) {
         const obj = {}
         this.formConfig.map(item => {
           obj[item.prop] = item.defaultVal || undefined
@@ -131,7 +131,9 @@ export default {
     },
     reset () {
       this.queryParam = {}
-      this.$emit('reset')
+      this.$nextTick(() => {
+        this.$emit('reset')
+      })
     }
   }
 }

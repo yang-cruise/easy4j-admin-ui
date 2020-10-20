@@ -32,12 +32,10 @@
 
 <script>
 import { ArticleListContent } from '@/framework/components'
-import IconText from '@/framework/example/list/search/components/IconText'
 
 export default {
   name: 'Article',
   components: {
-    IconText,
     ArticleListContent
   },
   data () {

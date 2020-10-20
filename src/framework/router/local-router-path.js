@@ -68,7 +68,7 @@ const defaultRouter = [
 
 const localRouter = [ ...generator, ...defaultRouter ]
 
-console.log('localRouter', localRouter)
+// console.log('localRouter', localRouter)
 
 export {
   localRouter

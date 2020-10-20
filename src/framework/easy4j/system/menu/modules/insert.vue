@@ -142,7 +142,6 @@ export default {
       insert(params)
         .then(res => {
           this.$message.success('添加成功')
-          this.$router.replave('/system/menu')
           this.loading = false
           this.visible = false
           this.$emit('updata')

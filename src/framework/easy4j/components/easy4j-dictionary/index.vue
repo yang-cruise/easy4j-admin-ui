@@ -49,6 +49,7 @@ export default {
       default: ''
     },
     selectValue: {
+      type: [String, Array, Object],
       default: undefined || []
     },
     multiple: {
@@ -56,6 +57,7 @@ export default {
       default: false
     },
     placeholder: {
+      type: String,
       default: '请选择'
     }
   },

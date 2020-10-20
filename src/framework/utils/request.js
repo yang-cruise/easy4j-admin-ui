@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router'
 // import store from '@/framework/store'
 import storage from 'store'
 import notification from 'ant-design-vue/es/notification'
@@ -52,12 +53,16 @@ request.interceptors.request.use(config => {
 // response interceptor
 request.interceptors.response.use((response) => {
   const result = response.data
+  if (!result.code) {
+    return result
+  }
   if (result.code === 10005) {
     notification.error({
       message: '提示',
       description: result.msg
     })
     localStorage.clear()
+    router.push('/user/login')
     return Promise.reject(result)
   }
   if (result.code !== 200) {
@@ -65,6 +70,7 @@ request.interceptors.response.use((response) => {
       message: '提示',
       description: result.msg
     })
+    return Promise.reject(result)
   }
   return result
 }, errorHandler)

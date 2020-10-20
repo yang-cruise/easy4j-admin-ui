@@ -85,6 +85,7 @@ const user = {
         commit('SET_ROLES', [])
         commit('SET_BTN_PERMISSIONS', [])
         storage.clearAll()
+        window.location.reload()
         resolve()
       })
     }

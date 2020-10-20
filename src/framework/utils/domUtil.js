@@ -17,6 +17,5 @@ export const setDocumentTitle = function (title) {
     document.body.appendChild(i)
   }
 }
-console.log(config.title)
 
-export const domTitle = config.title
+export const domTitle = config.title || ''
