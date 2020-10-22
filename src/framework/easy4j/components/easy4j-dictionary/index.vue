@@ -49,7 +49,7 @@ export default {
       default: ''
     },
     selectValue: {
-      type: [String, Array],
+      type: [String, Array, Number],
       default: undefined
     },
     multiple: {
@@ -69,7 +69,7 @@ export default {
   mounted () {
     if (this.codeKey) {
       this.getArrowDown()
-      this.selectDic.defaultValue = this.selectValue ? this.selectValue : undefined
+      this.selectDic.defaultValue = this.selectValue ? this.typeCross(this.selectValue) : undefined
       this.selectDic.placeholder = this.placeholder ? this.placeholder : '请选择'
     }
   },
@@ -82,7 +82,7 @@ export default {
       }
     },
     selectValue (a, b) {
-      this.selectDic.defaultValue = a
+      this.selectDic.defaultValue = this.typeCross(a)
     },
     placeholder (a, b) {
       this.selectDic.placeholder = a ? toString(a) : '请选择'
@@ -114,6 +114,9 @@ export default {
       }
       this.$emit('changeSelect', backArr)
       this.$emit('input-value', value)
+    },
+    typeCross (val) {
+      return typeof val === 'number' ? `${val}` : val
     }
   }
 }
