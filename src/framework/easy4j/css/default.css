@@ -35,6 +35,9 @@
 .justify-end {
   justify-content: flex-end;
 }
+.align-center {
+  align-items: center;
+}
 
 .padding-xs {
   padding: 10px;
