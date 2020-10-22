@@ -8,6 +8,7 @@
       <a-tree
         v-model="defaultCheckeedKeys"
         checkable
+        checkStrictly
         :tree-data="treeData"
         :replace-fields="replaceFields"
         @check="onCheck"
@@ -75,7 +76,7 @@ export default {
       this.visible = false
     },
     onCheck (checkedKeys, info) {
-      this.nodeStr = checkedKeys.join(',')
+      this.nodeStr = checkedKeys.checked.join(',')
     }
   }
 }
