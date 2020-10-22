@@ -91,6 +91,8 @@ export default {
     }
   },
   mounted () {
+    localStorage.clear()
+    sessionStorage.clear()
     this.GetSysMsg()
   },
   methods: {

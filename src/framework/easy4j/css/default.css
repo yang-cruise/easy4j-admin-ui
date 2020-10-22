@@ -2,11 +2,21 @@
   background-color: white;
 }
 
+.block{
+  display: block;
+}
+.inline {
+  display: inline-block;
+}
+
 .text-center {
   text-align: center;
 }
 .text-right {
   text-align: right;
+}
+.text-middle {
+  vertical-align: middle;
 }
 
 .border-box {
@@ -21,6 +31,9 @@
 }
 .flex-1{
   flex: 1;
+}
+.justify-end {
+  justify-content: flex-end;
 }
 
 .padding-xs {
@@ -38,6 +51,22 @@
 }
 .margin-left-xs {
   margin-left: 10px;
+}
+.margin-lr-xs {
+  margin-left: 10px;
+  margin-right: 10px;;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-fixed {
+  position: fixed;
 }
 
 .w100 {
