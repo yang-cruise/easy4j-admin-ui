@@ -1,14 +1,14 @@
 <template>
   <a-select
     v-if="multiple"
-    v-model="selects.defaultValue"
+    v-model="selectDic.defaultValue"
     mode="multiple"
     style="width: 100%"
-    :placeholder="selects.placeholder"
+    :placeholder="selectDic.placeholder"
     @change="changeSelect"
     option-label-prop="label"
   >
-    <template v-for="(item,index) in selects.arr">
+    <template v-for="(item,index) in selectDic.arr">
       <a-select-option :key="index" :value="item.key" :label="item.value">
         {{ item.value }}
       </a-select-option>
@@ -16,12 +16,12 @@
   </a-select>
   <a-select
     v-else
-    v-model="selects.defaultValue"
+    v-model="selectDic.defaultValue"
     :allowClear="true"
-    :placeholder="selects.placeholder"
+    :placeholder="selectDic.placeholder"
     @change="changeSelect"
     style="min-width:120px">
-    <template v-for="(item,index) in selects.arr">
+    <template v-for="(item,index) in selectDic.arr">
       <a-select-option :key="index" :value="item.key">{{ item.value }}</a-select-option>
     </template>
   </a-select>
@@ -49,8 +49,8 @@ export default {
       default: ''
     },
     selectValue: {
-      type: [String, Array, Object],
-      default: undefined || []
+      type: [String, Array],
+      default: undefined
     },
     multiple: {
       type: Boolean,
@@ -63,14 +63,14 @@ export default {
   },
   data () {
     return {
-      selects: selects
+      selectDic: selects
     }
   },
   mounted () {
     if (this.codeKey) {
       this.getArrowDown()
-      this.selects.defaultValue = this.selectValue ? this.selectValue : undefined
-      this.selects.placeholder = this.placeholder ? this.placeholder : '请选择'
+      this.selectDic.defaultValue = this.selectValue ? this.selectValue : undefined
+      this.selectDic.placeholder = this.placeholder ? this.placeholder : '请选择'
     }
   },
   watch: {
@@ -82,11 +82,10 @@ export default {
       }
     },
     selectValue (a, b) {
-      this.selects.defaultValue = a ? toString(a) : undefined
-      this.changeSelect(a)
+      this.selectDic.defaultValue = a
     },
     placeholder (a, b) {
-      this.selects.placeholder = a ? toString(a) : '请选择'
+      this.selectDic.placeholder = a ? toString(a) : '请选择'
     }
   },
   methods: {
@@ -97,8 +96,8 @@ export default {
     },
     changeSelect (value) {
       let backArr = ''
-      const resultArr = [...this.selects.arr]
-      if (this.selects.multiple && value) {
+      const resultArr = [...this.selectDic.arr]
+      if (this.selectDic.multiple && value) {
         backArr = []
         value.forEach(el => {
           resultArr.find((valueId, index) => {
@@ -114,7 +113,7 @@ export default {
         }
       }
       this.$emit('changeSelect', backArr)
-      this.$emit('input-value', value || undefined)
+      this.$emit('input-value', value)
     }
   }
 }
