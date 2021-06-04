@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <page-header-wrapper :title="false">
-      Hello ant-pro-vue
-    </page-header-wrapper>
-  </div>
+  <page-header-wrapper :title="false">
+    holle easy4j
+  </page-header-wrapper>
 </template>
 
 <script>
-  export default {
-    metaTitle: 'hello easy4j'
-  }
+export default {
+  metaTitle: 'hello easy4j'
+}
 </script>
