@@ -77,7 +77,7 @@
 <script>
 import Easy4jDictSelect from '@/framework/easy4j/components/easy4j-dictionary'
 import Easy4jCityCascader from '@/framework/easy4j/components/easy4j-city-cascader'
-import Easy4jTimePicker from '@/framework/easy4j/components/easy4j-time-picker'
+import Easy4jTimePicker from '@/framework/easy4j/components/easy4j-time-picker/index.js'
 export default {
   props: {
     formConfig: {
