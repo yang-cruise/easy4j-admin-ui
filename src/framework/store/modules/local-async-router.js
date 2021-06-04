@@ -30,6 +30,9 @@ const handleRoutersList = (list = [], target) => {
     if (localCurrentItem) {
       child.component = localCurrentItem.component
       child.hidden = false
+      if (localCurrentItem.meta.title && !child.meta.title) {
+        child.meta.title = localCurrentItem.meta.title
+      }
     }
     if (item.type === 'D' && item.children && item.children.length) {
       child.redirect = getFirstPath(item.children)
