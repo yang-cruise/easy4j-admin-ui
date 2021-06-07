@@ -18,8 +18,8 @@ files.keys().forEach(key => {
 
 bizFiles.keys().forEach(key => {
   const routerPath = `/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
-  const file = bizFiles(key).default || bizFiles(key)
-  const fileName = file.metaTitle
+  const file = bizFiles(key).default || bizFiles(key) || {}
+  const fileName = file.metaTitle || ''
   const currentRouter = {
     path: routerPath,
     component: bizFiles(key).default || bizFiles(key),
