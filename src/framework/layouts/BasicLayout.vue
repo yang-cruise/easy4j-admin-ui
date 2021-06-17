@@ -14,6 +14,7 @@
     <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
+      <easy4j-nav />
     </template>
     <template v-slot:footerRender>
       <global-footer />
@@ -32,6 +33,7 @@ import defaultSettings from '@/framework/config/defaultSettings'
 import RightContent from '@/framework/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/framework/components/GlobalFooter'
 import Ads from '@/framework/components/Other/CarbonAds'
+import Easy4jNav from '@/framework/easy4j/components/easy4j-nav'
 
 export default {
   name: 'BasicLayout',
@@ -39,7 +41,8 @@ export default {
     SettingDrawer,
     RightContent,
     GlobalFooter,
-    Ads
+    Ads,
+    Easy4jNav
   },
   data () {
     return {
