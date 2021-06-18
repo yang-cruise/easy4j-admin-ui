@@ -11,7 +11,8 @@ files.keys().forEach(key => {
   const currentRouter = {
     path: routerPath,
     component: files(key).default || files(key),
-    hidden: true // 本地路由默认隐藏
+    hidden: true, // 本地路由默认隐藏
+    name: routerPath.replace(/\//g, '_')
   }
   generator.push(currentRouter)
 })
@@ -25,8 +26,9 @@ bizFiles.keys().forEach(key => {
     component: bizFiles(key).default || bizFiles(key),
     hidden: true,
     meta: {
-      title: fileName
-    }
+      title: fileName || ''
+    },
+    name: routerPath.replace(/\//g, '_')
   }
   generator.push(currentRouter)
 })

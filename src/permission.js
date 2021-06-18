@@ -20,7 +20,7 @@ router.beforeEach((to, from, next) => {
   /* has token */
   if (storage.get(ACCESS_TOKEN)) {
     if (to.path === loginRoutePath) {
-      next({ path: defaultRoutePath })
+      next({ path: defaultRoutePath, replace: true })
       NProgress.done()
     } else {
       // check login user.roles is null
@@ -29,18 +29,26 @@ router.beforeEach((to, from, next) => {
           // 根据roles权限生成可访问的路由表
           // 动态添加可访问路由表
           router.addRoutes(store.getters.localRouters)
+          // router.addRoutes(store.getters.loaclRoutersFlat)
           // 请求带有 redirect 重定向时，登录自动重定向到该地址
-          const redirect = decodeURIComponent(from.query.redirect || to.path)
+          const redirect = decodeURIComponent(from.query.redirect || to.path || '/')
           if (to.path === redirect) {
             // set the replace: true so the navigation will not leave a history record\
             next({ ...to, replace: true })
           } else {
             // 跳转到目的路由
-            next({ path: redirect })
+            next({ path: redirect, replace: true })
           }
         })
       } else {
-        next()
+        if (to.matched.length === 0) {
+          store.dispatch('GenerateRoutes').then(() => {
+            router.addRoutes(store.getters.localRouters)
+            next({ ...to, replace: true })
+          })
+        } else {
+          next()
+        }
       }
     }
   } else {

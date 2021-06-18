@@ -3,18 +3,41 @@ import { constantRouterMap } from '@/framework/config/router.config'
 import { menu } from '@/framework/api/menu'
 // 前端根据项目目录生成的路由列表，如不需要前端自动生成则删除以下的引入
 import { localRouter } from '@/framework/router/local-router-path'
-
+// import { RouteView as routeViews } from '@/framework/layouts/RouteView.vue'
 // 组合处理router数据
 const RouteView = {
   name: 'RouteView',
   render: (h) => h('router-view')
 }
+
+const localRouterFlat = [...localRouter]
+
+// 前端未找到页面路由（固定不用改）
+const notFoundRouter = {
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
+// 根级菜单
+const rootRouter = {
+  key: '',
+  name: 'index',
+  path: '/',
+  component: BasicLayout,
+  redirect: '/home',
+  meta: {
+    title: '首页'
+  },
+  children: []
+}
+
 // 隐藏菜单
 let hideMenu = localRouter
 const handleRoutersList = (list = [], target) => {
   list.forEach((item) => {
     hideMenu = hideMenu.filter(ele => ele.path !== item.url)
-    const localCurrentItem = localRouter.find(ele => ele.path === item.url)
+    const localCurrentItemIndex = localRouter.findIndex(ele => ele.path === item.url)
+    const localCurrentItem = localRouter[localCurrentItemIndex] || null
     const child = {
       children: [],
       meta: {
@@ -24,15 +47,15 @@ const handleRoutersList = (list = [], target) => {
       },
       path: item.url || `/${item.id}`,
       component: RouteView,
-      name: `${item.id}`,
+      name: item.url || `/${item.id}`,
       key: `${item.id}`
     }
     if (localCurrentItem) {
       child.component = localCurrentItem.component
+      child.name = localCurrentItem.name
       child.hidden = false
-      if (localCurrentItem.meta.title && !child.meta.title) {
-        child.meta.title = localCurrentItem.meta.title
-      }
+      localRouterFlat[localCurrentItemIndex].path = child.path
+      localRouterFlat[localCurrentItemIndex].meta = child.meta
     }
     if (item.type === 'D' && item.children && item.children.length) {
       child.redirect = getFirstPath(item.children)
@@ -61,31 +84,18 @@ const getFirstPath = (list) => {
   return path
 }
 
-// 前端未找到页面路由（固定不用改）
-const notFoundRouter = {
-  path: '*',
-  redirect: '/404',
-  hidden: true
-}
-
 // 根级菜单
-const rootRouter = {
-  key: '',
-  name: 'index',
-  path: '/',
-  component: BasicLayout,
-  redirect: '',
-  meta: {
-    title: '首页'
-  },
-  children: []
+const rootRouterFlat = {
+  ...rootRouter,
+  children: [...localRouterFlat, notFoundRouter]
 }
 
 const permission = {
   state: {
     routers: constantRouterMap,
     addRouters: [],
-    localRouters: []
+    localRouters: [],
+    loaclRoutersFlat: [rootRouterFlat] // 扁平化路由数据
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
