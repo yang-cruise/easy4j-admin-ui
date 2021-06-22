@@ -17,7 +17,7 @@ function hasPermission (permission, route) {
       }
     }
     return false
-  } 
+  }
   return true
 }
 

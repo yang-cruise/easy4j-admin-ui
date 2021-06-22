@@ -1,5 +1,5 @@
 import S from 'ant-design-vue/es/select/index.js'
-import { selectByDictCode } from '@/framework/api/dictionaries'
+import { getSelectDiction } from '@/framework/api/dictionaries'
 
 export default {
   props: Object.assign({}, S.props, {
@@ -48,7 +48,7 @@ export default {
       const params = {
         dictCode: this.dict
       }
-      selectByDictCode(params).then(res => {
+      getSelectDiction(params).then(res => {
         this.optionsList = res.data || []
         this.$ls.set('DICT', { ...dictObj, [this.dict]: this.optionsList })
         const temp = this.optionsList.find(ele => `${ele.key}` === `${this.value}`)

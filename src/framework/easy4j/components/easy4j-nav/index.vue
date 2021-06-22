@@ -1,7 +1,17 @@
 <template>
   <div class="nav">
-    <a-tabs v-model="activeKey" hide-add type="editable-card" @edit="onEdit" @change="changeNav">
-      <a-tab-pane v-for="item in panes" :key="item.name" :tab="item.meta.title"></a-tab-pane>
+    <a-tabs
+      v-model="activeKey"
+      hide-add
+      type="editable-card"
+      @edit="onEdit"
+      @change="changeNav"
+    >
+      <a-tab-pane
+        v-for="item in panes"
+        :key="item.name"
+        :tab="item.meta.title"
+      ></a-tab-pane>
     </a-tabs>
   </div>
 </template>
@@ -12,25 +22,31 @@ export default {
     return {
       activeKey: '',
       panes: [],
-      newTabIndex: 0
+      newTabIndex: 0,
+      panesObj: {}
     }
   },
   watch: {
     $route: {
       handler: function (val) {
         this.activeKey = val.name
-        this.panes.push(val)
-        this.panes = this.objSet(this.panes)
-    },
-    // 深度观察监听
-    deep: true
+        if (!this.panesObj[val.name]) {
+          this.updateNav(val)
+        }
+      },
+      deep: true
     }
   },
- created () {
-   this.panes.push(this.$route)
-   this.activeKey = this.panes[0].name
- },
+  created () {
+    this.activeKey = this.$route.name
+    this.updateNav(this.$route)
+  },
   methods: {
+    updateNav (nav) {
+      this.panes.push(nav)
+      this.panesObj[nav.name] = { ...nav }
+      this.$store.dispatch('SetKeep', this.$route.name)
+    },
     onEdit (targetKey, action) {
       this[action](targetKey)
     },
@@ -38,40 +54,23 @@ export default {
       if (this.panes.length < 2) {
         return
       }
-      let activeKey = this.activeKey
-      let lastIndex
-      this.panes.forEach((pane, i) => {
-        if (pane.name === targetKey) {
-          lastIndex = i - 1
-        }
-      })
-      const panes = this.panes.filter(pane => pane.name !== targetKey)
-      if (panes.length && activeKey === targetKey) {
-        if (lastIndex >= 0) {
-          activeKey = panes[lastIndex].name
-        } else {
-          activeKey = panes[0].name
-        }
+      /* 判断是都要删除当前路由，如果是则展示上一个路由 */
+      if (this.activeKey === targetKey) {
+        const currentIndex = this.panes.findIndex(ele => ele.name === this.activeKey)
+        const targetIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex + 1
+        this.activeKey = this.panes[targetIndex].name
       }
-      this.panes = panes
-      this.activeKey = activeKey
-      this.changeNav(activeKey)
+      this.panes = this.panes.filter(ele => ele.name !== targetKey)
+      // this.$store.dispatch('RemoveKepp', targetKey)
+      this.$nextTick(() => {
+        this.changeNav(this.activeKey)
+        delete this.panesObj[targetKey]
+      })
     },
     changeNav (activeKey) {
       this.panes.forEach(el => {
         el.name === activeKey && this.$router.push(el.path)
       })
-    },
-    objSet (arr) {
-      var result = []
-      var obj = {}
-      for (var i = 0; i < arr.length; i++) {
-        if (!obj[arr[i].name]) {
-          result.push(arr[i])
-          obj[arr[i].name] = true
-        }
-      }
-      return result
     }
   }
 }

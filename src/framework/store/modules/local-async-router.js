@@ -33,7 +33,7 @@ const rootRouter = {
 
 // 隐藏菜单
 let hideMenu = localRouter
-const handleRoutersList = (list = [], target) => {
+const handleRoutersList = (list = [], target, parentPath = '/') => {
   list.forEach((item) => {
     hideMenu = hideMenu.filter(ele => ele.path !== item.url)
     const localCurrentItemIndex = localRouter.findIndex(ele => ele.path === item.url)
@@ -43,7 +43,8 @@ const handleRoutersList = (list = [], target) => {
       meta: {
         title: item.name,
         show: true,
-        icon: item.icon
+        icon: item.icon,
+        parentPath
       },
       path: item.url || `/${item.id}`,
       component: RouteView,
@@ -62,7 +63,7 @@ const handleRoutersList = (list = [], target) => {
       child.path = `/${item.id}`
     }
     if (item.children && item.children.length) {
-      handleRoutersList(item.children, child.children)
+      handleRoutersList(item.children, child.children, child.path)
     } else {
       delete child.children
     }
