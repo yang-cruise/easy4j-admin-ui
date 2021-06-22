@@ -1,11 +1,12 @@
 <template>
-  <div class="nav">
+  <div class="nav flex align-center">
     <a-tabs
       v-model="activeKey"
       hide-add
       type="editable-card"
       @edit="onEdit"
       @change="changeNav"
+      class="flex-1"
     >
       <a-tab-pane
         v-for="item in panes"
@@ -13,6 +14,7 @@
         :tab="item.meta.title"
       ></a-tab-pane>
     </a-tabs>
+    <a-icon type="ellipsis" class="icon" />
   </div>
 </template>
 
@@ -61,7 +63,7 @@ export default {
         this.activeKey = this.panes[targetIndex].name
       }
       this.panes = this.panes.filter(ele => ele.name !== targetKey)
-      // this.$store.dispatch('RemoveKepp', targetKey)
+      this.$store.dispatch('RemoveKepp', targetKey)
       this.$nextTick(() => {
         this.changeNav(this.activeKey)
         delete this.panesObj[targetKey]
@@ -80,5 +82,9 @@ export default {
 .nav {
   background: #fff;
   padding: 0 24px;
+}
+.icon {
+  cursor: pointer;
+  transform: rotate(90deg);
 }
 </style>

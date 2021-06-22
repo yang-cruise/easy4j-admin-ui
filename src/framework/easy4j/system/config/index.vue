@@ -95,6 +95,7 @@ import { putSetting } from '@/framework/api/setting'
 import { upload } from '@/framework/api/common'
 
 export default {
+  name: 'SysConfig',
   data () {
     return {
       // 默认选择tab

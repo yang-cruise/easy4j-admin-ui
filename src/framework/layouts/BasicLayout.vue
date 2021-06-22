@@ -23,17 +23,16 @@
     <template v-slot:footerRender>
       <global-footer />
     </template>
-    <!-- 路由缓存 -->
-    <keep-alive v-if="keepList.includes($route.name)">
+    <!-- 路由缓存 v-if="keepList.includes($route.name)"-->
+    <keep-alive :include="keepList">
       <router-view />
     </keep-alive>
-    <router-view v-else />
   </pro-layout>
 </template>
 
 <script>
 import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
-// import ProLayout from '@/framework/components/ProLayout'
+import ProLayout from '@/framework/components/ProLayout'
 import { i18nRender } from '@/framework/locales'
 import { mapState, mapActions } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/framework/store/mutation-types'
@@ -49,7 +48,8 @@ export default {
     SettingDrawer,
     RightContent,
     GlobalFooter,
-    Easy4jNav
+    Easy4jNav,
+    ProLayout
   },
   data () {
     return {

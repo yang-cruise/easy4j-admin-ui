@@ -88,6 +88,7 @@ const formData = [
 ]
 
 export default {
+  name: 'SysDict',
   components: {
     STable, DicFrom, ChangeFrom, Easy4jQueryForm
   },

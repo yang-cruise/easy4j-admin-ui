@@ -8,11 +8,13 @@ const bizFiles = require.context('@/biz/views', true, /index\.vue$/)
 
 files.keys().forEach(key => {
   const routerPath = `/sys/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
+  const file = files(key).default || files(key) || {}
+  const name = routerPath.replace(/\//g, '_').substring(1)
   const currentRouter = {
     path: routerPath,
-    component: files(key).default || files(key),
+    component: file,
     hidden: true, // 本地路由默认隐藏
-    name: routerPath.replace(/\//g, '_')
+    name
   }
   generator.push(currentRouter)
 })
@@ -21,6 +23,7 @@ bizFiles.keys().forEach(key => {
   const routerPath = `/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
   const file = bizFiles(key).default || bizFiles(key) || {}
   const fileName = file.metaTitle || ''
+  const name = routerPath.replace(/\//g, '_').substring(1)
   const currentRouter = {
     path: routerPath,
     component: bizFiles(key).default || bizFiles(key),
@@ -28,7 +31,7 @@ bizFiles.keys().forEach(key => {
     meta: {
       title: fileName || ''
     },
-    name: routerPath.replace(/\//g, '_')
+    name
   }
   generator.push(currentRouter)
 })
