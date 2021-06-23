@@ -7,17 +7,24 @@
       :form="form"
       @submit="handleSubmit"
     >
-      <a-card
-        style="width:100%"
-      >
+      <a-card style="width:100%">
         <div>
           <a-tabs
             :activeKey="customActiveKey"
             :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
             @change="handleTabClick"
           >
-            <a-tab-pane key="tab1" tab="账号密码登录">
-              <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="用户名或密码错误" />
+            <a-tab-pane
+              key="tab1"
+              tab="账号密码登录"
+            >
+              <a-alert
+                v-if="isLoginError"
+                type="error"
+                showIcon
+                style="margin-bottom: 24px;"
+                message="用户名或密码错误"
+              />
               <a-form-item>
                 <a-input
                   size="large"
@@ -28,7 +35,11 @@
                     {rules: [{ required: true, message: '请输入用户名' }], validateTrigger: 'blur'}
                   ]"
                 >
-                  <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+                  <a-icon
+                    slot="prefix"
+                    type="user"
+                    :style="{ color: 'rgba(0,0,0,.25)' }"
+                  />
                 </a-input>
               </a-form-item>
 
@@ -41,7 +52,11 @@
                     {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
                   ]"
                 >
-                  <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+                  <a-icon
+                    slot="prefix"
+                    type="lock"
+                    :style="{ color: 'rgba(0,0,0,.25)' }"
+                  />
                 </a-input-password>
               </a-form-item>
             </a-tab-pane>
@@ -53,7 +68,10 @@
           </a-tabs>
         </div>
         <div>
-          <a-form-item v-if="customActiveKey==='tab1'" style="margin-top:24px">
+          <a-form-item
+            v-if="customActiveKey==='tab1'"
+            style="margin-top:24px"
+          >
             <a-button
               size="large"
               type="primary"
@@ -130,13 +148,16 @@ export default {
     },
     goPage () {
       Promise.all([this.GetInfo(), this.GetBtnPermissions()]).then(() => {
-        this.$router.push({ path: '/' }, () => {
-          this.$notification.success({
-            message: '欢迎',
-            description: `${timeFix()}，欢迎回来`
+        this.$nextTick(() => {
+          timeFix()
+          this.$router.push({ path: '/' }, () => {
+            this.$notification.success({
+              message: '欢迎',
+              description: `${timeFix()}，欢迎回来`
+            })
           })
+          this.isLoginError = false
         })
-        this.isLoginError = false
       }).catch(() => {
         this.isLoginError = false
       })
@@ -162,9 +183,9 @@ export default {
     width: 100%;
   }
 
-  .code-content{
+  .code-content {
     text-align: center;
-    img{
+    img {
       width: 200px;
     }
   }

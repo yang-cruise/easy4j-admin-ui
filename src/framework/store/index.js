@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import app from './modules/app'
 import user from './modules/user'
 import setting from './modules/setting'
+import Easy4jNav from './modules/easy4j-nav'
 // 本地写入路由
 // import permission from './modules/permission'
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     user,
     permission,
     setting,
+    Easy4jNav,
     ...biz
   },
   state: {

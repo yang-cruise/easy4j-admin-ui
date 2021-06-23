@@ -13,18 +13,27 @@
   >
     <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
-      <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
+      <right-content
+        :top-menu="settings.layout === 'topmenu'"
+        :is-mobile="isMobile"
+        :theme="settings.theme"
+      />
       <easy4j-nav />
     </template>
     <template v-slot:footerRender>
       <global-footer />
     </template>
-    <router-view />
+    <!-- 路由缓存 -->
+    <keep-alive v-if="keepList.includes($route.name)">
+      <router-view />
+    </keep-alive>
+    <router-view v-else />
   </pro-layout>
 </template>
 
 <script>
 import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
+// import ProLayout from '@/framework/components/ProLayout'
 import { i18nRender } from '@/framework/locales'
 import { mapState, mapActions } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/framework/store/mutation-types'
@@ -32,7 +41,6 @@ import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/framewor
 import defaultSettings from '@/framework/config/defaultSettings'
 import RightContent from '@/framework/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/framework/components/GlobalFooter'
-import Ads from '@/framework/components/Other/CarbonAds'
 import Easy4jNav from '@/framework/easy4j/components/easy4j-nav'
 
 export default {
@@ -41,7 +49,6 @@ export default {
     SettingDrawer,
     RightContent,
     GlobalFooter,
-    Ads,
     Easy4jNav
   },
   data () {
@@ -83,7 +90,8 @@ export default {
       // 动态主路由
       mainMenu: state => state.permission.addRouters,
       siteName: state => state.setting.siteName,
-      corpLogo: state => state.setting.logo
+      corpLogo: state => state.setting.logo,
+      keepList: state => state.Easy4jNav.keepList
     })
   },
   created () {
