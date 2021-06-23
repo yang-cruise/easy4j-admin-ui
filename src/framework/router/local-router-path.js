@@ -2,6 +2,7 @@
 * 根据目录结构来生成路由数据
 * 自动遍历目录/biz/views下的index.vue为页面
  */
+import { replaceReg } from '@/framework/utils/util'
 const files = require.context('@/framework/easy4j/system', true, /index\.vue$/)
 const generator = []
 const bizFiles = require.context('@/biz/views', true, /index\.vue$/)
@@ -12,7 +13,7 @@ files.keys().forEach(key => {
     path: routerPath,
     component: files(key).default || files(key),
     hidden: true, // 本地路由默认隐藏
-    name: routerPath.replace(/\//g, '_')
+    name: replaceReg(routerPath.replace(/\/|_/g, ' '))
   }
   generator.push(currentRouter)
 })
@@ -28,7 +29,7 @@ bizFiles.keys().forEach(key => {
     meta: {
       title: fileName || ''
     },
-    name: routerPath.replace(/\//g, '_')
+    name: replaceReg(routerPath.replace(/\/|_/g, ' '))
   }
   generator.push(currentRouter)
 })

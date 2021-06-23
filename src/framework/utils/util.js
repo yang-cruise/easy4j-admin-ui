@@ -78,3 +78,9 @@ export function hasPermission (permission) {
 
   return permission && permissionList && permissionList.length && permissionList.includes(permission)
 }
+
+/* 驼峰处理 */
+export function replaceReg (str) {
+  str = str.replace(/\b(\w)|\s(\w)/g, function (m) { return m.toUpperCase() })
+  return str.replace(/ /g, '')
+}
