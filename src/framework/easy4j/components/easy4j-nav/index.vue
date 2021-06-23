@@ -61,7 +61,7 @@ export default {
         this.activeKey = this.panes[targetIndex].name
       }
       this.panes = this.panes.filter(ele => ele.name !== targetKey)
-      // this.$store.dispatch('RemoveKepp', targetKey)
+      this.$store.dispatch('RemoveKepp', targetKey)
       this.$nextTick(() => {
         this.changeNav(this.activeKey)
         delete this.panesObj[targetKey]
