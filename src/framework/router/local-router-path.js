@@ -2,6 +2,8 @@
 * 根据目录结构来生成路由数据
 * 自动遍历目录/biz/views下的index.vue为页面
  */
+import { replaceReg } from '@/framework/utils/util'
+
 const files = require.context('@/framework/easy4j/system', true, /index\.vue$/)
 const generator = []
 const bizFiles = require.context('@/biz/views', true, /index\.vue$/)
@@ -9,7 +11,7 @@ const bizFiles = require.context('@/biz/views', true, /index\.vue$/)
 files.keys().forEach(key => {
   const routerPath = `/sys/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
   const file = files(key).default || files(key) || {}
-  const name = routerPath.replace(/\//g, '_').substring(1)
+  const name = replaceReg(routerPath.replace(/\//g, ' '))
   const currentRouter = {
     path: routerPath,
     component: file,
@@ -23,7 +25,7 @@ bizFiles.keys().forEach(key => {
   const routerPath = `/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
   const file = bizFiles(key).default || bizFiles(key) || {}
   const fileName = file.metaTitle || ''
-  const name = routerPath.replace(/\//g, '_').substring(1)
+  const name = replaceReg(routerPath.replace(/\//g, ' '))
   const currentRouter = {
     path: routerPath,
     component: bizFiles(key).default || bizFiles(key),

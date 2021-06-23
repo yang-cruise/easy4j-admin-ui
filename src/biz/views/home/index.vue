@@ -6,6 +6,7 @@
 
 <script>
 export default {
-  metaTitle: 'hello easy4j'
+  metaTitle: 'hello easy4j',
+  name: 'Home'
 }
 </script>
