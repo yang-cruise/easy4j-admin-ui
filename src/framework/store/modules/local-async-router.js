@@ -84,18 +84,11 @@ const getFirstPath = (list) => {
   return path
 }
 
-// 根级菜单
-const rootRouterFlat = {
-  ...rootRouter,
-  children: [...localRouterFlat, notFoundRouter]
-}
-
 const permission = {
   state: {
     routers: constantRouterMap,
     addRouters: [],
-    localRouters: [],
-    loaclRoutersFlat: [rootRouterFlat] // 扁平化路由数据
+    localRouters: []
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {

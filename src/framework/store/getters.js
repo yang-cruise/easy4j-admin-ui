@@ -13,8 +13,7 @@ const getters = {
   multiTab: state => state.app.multiTab,
   btnPermissions: state => state.user.btnPermissions,
   localRouters: state => state.permission.localRouters,
-  siteName: state => state.setting.siteName,
-  loaclRoutersFlat: state => state.permission.loaclRoutersFlat || []
+  siteName: state => state.setting.siteName
 }
 
 export default getters

@@ -74,6 +74,16 @@ export default {
     pageURI: {
       type: Boolean,
       default: false
+    },
+    pageKey: {
+      type: Object,
+      default: () => {
+        return { pageNo: 'pageNo', pageSize: 'pageSize' }
+      }
+    },
+    paginationProcess: {
+      default: true,
+      type: Boolean
     }
   }),
   watch: {
@@ -136,11 +146,12 @@ export default {
      * @param {Object} sorter 排序条件
      */
     loadData (pagination, filters, sorter) {
+      const { pageNo, pageSize } = this.pageKey
       this.localLoading = true
       const parameter = Object.assign({
-        pageNo: (pagination && pagination.current) ||
+        [pageNo]: (pagination && pagination.current) ||
           this.showPagination && this.localPagination.current || this.pageNum,
-        pageSize: (pagination && pagination.pageSize) ||
+        [pageSize]: (pagination && pagination.pageSize) ||
           this.showPagination && this.localPagination.pageSize || this.pageSize
       },
       (sorter && sorter.field && {
