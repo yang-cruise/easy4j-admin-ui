@@ -11,7 +11,7 @@ const bizFiles = require.context('@/biz/views', true, /index\.vue$/)
 files.keys().forEach(key => {
   const routerPath = `/sys/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
   const file = files(key).default || files(key) || {}
-  const name = replaceReg(routerPath.replace(/\//g, ' '))
+  const name = replaceReg(routerPath.replace(/\/|_/g, ' '))
   const currentRouter = {
     path: routerPath,
     component: file,
@@ -25,7 +25,7 @@ bizFiles.keys().forEach(key => {
   const routerPath = `/${key.replace(/(\.\/|\/index\.vue)/g, '')}`
   const file = bizFiles(key).default || bizFiles(key) || {}
   const fileName = file.metaTitle || ''
-  const name = replaceReg(routerPath.replace(/\//g, ' '))
+  const name = replaceReg(routerPath.replace(/\/|_/g, ' '))
   const currentRouter = {
     path: routerPath,
     component: bizFiles(key).default || bizFiles(key),

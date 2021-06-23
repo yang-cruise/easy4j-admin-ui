@@ -30,8 +30,6 @@ router.beforeEach((to, from, next) => {
           // 动态添加可访问路由表
           // router.addRoutes(store.getters.localRouters)
           router.addRoutes(store.getters.loaclRoutersFlat)
-          console.log(store.getters.loaclRoutersFlat)
-          console.log(router.getRoutes())
           // 请求带有 redirect 重定向时，登录自动重定向到该地址
           const redirect = decodeURIComponent(from.query.redirect || to.path || defaultRoutePath)
           if (to.path === redirect) {
