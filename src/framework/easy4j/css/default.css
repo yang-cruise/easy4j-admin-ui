@@ -75,3 +75,13 @@
 .w100 {
   width: 100%;
 }
+/* ant table no-wrap */
+
+.ant-table-thead>tr>th {
+  white-space: nowrap;
+}
+
+.ant-table {
+  max-width: 100%;
+  overflow-x: auto;
+}

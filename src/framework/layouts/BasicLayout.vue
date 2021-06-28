@@ -24,10 +24,9 @@
       <global-footer />
     </template>
     <!-- 路由缓存 -->
-    <keep-alive v-if="keepList.includes($route.name)">
+    <keep-alive :include="keepList">
       <router-view />
     </keep-alive>
-    <router-view v-else />
   </pro-layout>
 </template>
 

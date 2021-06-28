@@ -78,6 +78,7 @@ const formData = [
   }
 ]
 export default {
+  name: 'SysRole',
   components: {
     STable,
     Ellipsis,
