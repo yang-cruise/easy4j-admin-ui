@@ -45,6 +45,7 @@ import moment from 'moment'
 import Easy4jQueryForm from '@/framework/easy4j/components/easy4j-query-form'
 
 export default {
+  name: 'SysMenu',
   components: {
     STable,
     SortMenu,

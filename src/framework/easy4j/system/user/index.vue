@@ -205,6 +205,7 @@ import EditPassword from './modals/edit-password'
 import AIcon from 'ant-design-vue/es/icon'
 
 export default {
+  name: 'SysUser',
   components: {
     ATree,
     AIcon,
