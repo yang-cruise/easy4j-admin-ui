@@ -1,15 +1,14 @@
-import { BasicLayout } from '@/framework/layouts'
+import { BasicLayout, RouteView } from '@/framework/layouts'
 import { constantRouterMap } from '@/framework/config/router.config'
 import { menu } from '@/framework/api/menu'
 // 前端根据项目目录生成的路由列表，如不需要前端自动生成则删除以下的引入
 import { localRouter } from '@/framework/router/local-router-path'
 // import { RouteView as routeViews } from '@/framework/layouts/RouteView.vue'
 // 组合处理router数据
-const RouteView = {
-  name: 'RouteView',
-  render: (h) => h('router-view')
-}
-
+// const RouteView = {
+//   name: 'RouteView',
+//   render: (h) => h('router-view')
+// }
 const localRouterFlat = [...localRouter]
 
 // 前端未找到页面路由（固定不用改）
@@ -87,7 +86,7 @@ const getFirstPath = (list) => {
 // 根级菜单
 const rootRouterFlat = {
   ...rootRouter,
-  children: [...localRouterFlat]
+  children: [...localRouterFlat, notFoundRouter]
 }
 
 const permission = {
@@ -95,7 +94,7 @@ const permission = {
     routers: constantRouterMap,
     addRouters: [],
     localRouters: [],
-    loaclRoutersFlat: [rootRouterFlat, notFoundRouter] // 扁平化路由数据
+    loaclRoutersFlat: [rootRouterFlat] // 扁平化路由数据
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {

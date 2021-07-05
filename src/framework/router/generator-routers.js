@@ -64,7 +64,7 @@ const notFoundRouter = {
 const rootRouter = {
   key: '',
   name: 'index',
-  path: '',
+  path: '/',
   component: 'BasicLayout',
   redirect: '/dashboard',
   meta: {
