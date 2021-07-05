@@ -9,6 +9,7 @@
  * contentWidth - 内容区布局： 流式 |  固定
  *
  * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
+ * multiTab: true- 是否开启路由缓存模式
  *
  */
 export default {
@@ -25,5 +26,6 @@ export default {
   // title: store.getters.siteName,
   pwa: false,
   iconfontUrl: '',
-  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
+  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
+  multiTab: true
 }

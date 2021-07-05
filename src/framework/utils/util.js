@@ -81,6 +81,7 @@ export function hasPermission (permission) {
 
 /* 驼峰处理 */
 export function replaceReg (str) {
+  str = str.toLowerCase()
   str = str.replace(/\b(\w)|\s(\w)/g, function (m) { return m.toUpperCase() })
   return str.replace(/ /g, '')
 }
