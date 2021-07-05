@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from '../router'
-// import store from '@/framework/store'
+import store from '@/framework/store'
 import storage from 'store'
 import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
@@ -42,6 +42,8 @@ const errorHandler = (error) => {
 // request interceptor
 request.interceptors.request.use(config => {
   const token = storage.get(ACCESS_TOKEN)
+  // 查询表单防抖
+  store.state.queryFormLoading && store.dispatch('setQueryFormStatus', false)
   // 如果 token 存在
   // 让每个请求携带自定义 token 请根据实际情况自行修改
   if (token) {

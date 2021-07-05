@@ -1,5 +1,6 @@
 import S from 'ant-design-vue/es/select/index.js'
 import { getSelectDiction } from '@/framework/api/dictionaries'
+import storage from 'store'
 
 export default {
   props: Object.assign({}, S.props, {
@@ -23,6 +24,11 @@ export default {
       selectValue: undefined
     }
   },
+  computed: {
+    dictList () {
+      return this.$store.state.dictStatus
+    }
+  },
   watch: {
     value: function (val, oldVal) {
       this.selectValue = val || undefined
@@ -35,7 +41,7 @@ export default {
   },
   methods: {
     initData () {
-      const dictObj = this.$ls.get('DICT') || {}
+      const dictObj = storage.get('DICT') || {}
       if (dictObj[this.dict]) {
         this.optionsList = dictObj[this.dict]
         const temp = this.optionsList.find(ele => `${ele.key}` === `${this.value}`)
@@ -45,12 +51,19 @@ export default {
         }
         return
       }
+      // 请求获取字典
+      if (this.dictList.includes(this.dict)) {
+        setTimeout(() => {
+          this.initData()
+        }, 500)
+        return
+      }
       const params = {
-        dictCode: this.dict
+        code: this.dict
       }
       getSelectDiction(params).then(res => {
         this.optionsList = res.data || []
-        this.$ls.set('DICT', { ...dictObj, [this.dict]: this.optionsList })
+        storage.set('DICT', { ...dictObj, [this.dict]: this.optionsList })
         const temp = this.optionsList.find(ele => `${ele.key}` === `${this.value}`)
         if (temp) {
           this.textValue = temp.value || ''
@@ -76,7 +89,7 @@ export default {
       dom = this.textValue
     } else {
       dom = (
-        <a-select v-model={this.selectValue} {...props} placeholder={props.placeholder} onchange={this.handleChange}>
+        <a-select v-model={this.selectValue} {...props} placeholder={props.placeholder} onchange={this.handleChange} style={{ width: '100%' }}>
           {
             optionsList.map(item => {
               return <a-select-option value={item.key}>{item.value}</a-select-option>
@@ -87,7 +100,7 @@ export default {
     }
     return (
       <div className="line-block">
-       { dom }
+        {dom}
       </div>
     )
   }
