@@ -58,11 +58,13 @@ export default {
         }, 500)
         return
       }
+      this.$store.dispatch('setDictStatus', this.dict)
       const params = {
         code: this.dict
       }
       getSelectDiction(params).then(res => {
         this.optionsList = res.data || []
+        const dictObj = storage.get('DICT') || {}
         storage.set('DICT', { ...dictObj, [this.dict]: this.optionsList })
         const temp = this.optionsList.find(ele => `${ele.key}` === `${this.value}`)
         if (temp) {
