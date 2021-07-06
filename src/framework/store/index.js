@@ -31,12 +31,24 @@ export default new Vuex.Store({
     ...biz
   },
   state: {
+    queryFormLoading: false, // 查询组件表单防抖设置
+    dictStatus: [] // 字典节流
   },
   mutations: {
-
+    QUERYLOADING: (state, loading) => {
+      state.queryFormLoading = loading
+    },
+    DICTSTATUS: (state, data) => {
+      state.dictStatus.push(data)
+    }
   },
   actions: {
-
+    setQueryFormStatus: ({ commit }, loading) => {
+      commit('QUERYLOADING', loading)
+    },
+    setDictStatus: ({ commit }, data) => {
+      commit('DICTSTATUS', data)
+    }
   },
   getters
 })

@@ -19,8 +19,7 @@ const notFoundRouter = {
 }
 // 根级菜单
 const rootRouter = {
-  key: '',
-  name: 'index',
+  name: 'Index',
   path: '/',
   component: BasicLayout,
   redirect: '/home',
@@ -84,11 +83,18 @@ const getFirstPath = (list) => {
   return path
 }
 
+// 根级菜单
+const rootRouterFlat = {
+  ...rootRouter,
+  children: [...localRouterFlat, notFoundRouter]
+}
+
 const permission = {
   state: {
     routers: constantRouterMap,
     addRouters: [],
-    localRouters: []
+    localRouters: [],
+    loaclRoutersFlat: [rootRouterFlat] // 扁平化路由数据
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {

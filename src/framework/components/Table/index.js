@@ -175,8 +175,10 @@ export default {
             pageSize: (pagination && pagination.pageSize) ||
               this.localPagination.pageSize
           }) || false
+
+          /* TODO: 表格数据每页数据展示不一致也需要跳转分页 新增一个数据 paginationProcess = true 处理分页 false不处理分页 */
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-          if (r.data.length === 0 && this.showPagination && this.localPagination.current > 1) {
+          if (r.data.length === 0 && this.showPagination && this.localPagination.current > 1 && this.paginationProcess) {
             this.localPagination.current--
             this.loadData()
             return
@@ -312,7 +314,7 @@ export default {
       return props[k]
     })
     const table = (
-      <a-table {...{ props, scopedSlots: { ...this.$scopedSlots } }} onChange={this.loadData} onExpand={ (expanded, record) => { this.$emit('expand', expanded, record) } }>
+      <a-table {...{ props, scopedSlots: { ...this.$scopedSlots } }} scroll={{ x: true }} onChange={this.loadData} onExpand={ (expanded, record) => { this.$emit('expand', expanded, record) } }>
         { Object.keys(this.$slots).map(name => (<template slot={name}>{this.$slots[name]}</template>)) }
       </a-table>
     )
